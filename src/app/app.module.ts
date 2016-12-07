@@ -11,6 +11,7 @@ import { AuthStateComponent } from './auth-state/auth-state.component';
 import { UserDataComponent } from './user-data/user-data.component';
 
 import { FirebaseService } from './firebase.service';
+import { QuestionContentComponent } from './question-content/question-content.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD62AjtNiXO4eAhXTa6v-g1JmjVeT58tLY",
@@ -31,7 +32,8 @@ export const firebaseAuthConfig = {
     LoginComponent,
     RegisterComponent,
     AuthStateComponent,
-    UserDataComponent
+    UserDataComponent,
+    QuestionContentComponent
   ],
   imports: [
     BrowserModule,

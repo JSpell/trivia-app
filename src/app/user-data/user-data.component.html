@@ -1,18 +1,5 @@
 <ul>
     <li *ngFor="let question of questionData | async;" class="question-container">
-        <p>{{ question.questionText }}</p>
-        <ul class="question-answers">
-            <li *ngFor="let answer of question.options; let i = index" class="answer">
-                <input type="radio" 
-                        [attr.name]="question.$key" 
-                        [value]="i" 
-                        id="{{question.$key}}-{{i}}"
-                        (click)="getAnswer(question, i)"
-                />
-                <label htmlFor="{{question.$key}}-{{i}}" [class.correct]="i == 3"> {{ answer }} </label>
-            </li>                
-        </ul>
-        <p>You have selected {{question.answerEval}}</p>
-        <button (click)="submitAnswer()">Submit</button>
+        <question-content [currentQuestion]="question"></question-content>
     </li>
 </ul>
