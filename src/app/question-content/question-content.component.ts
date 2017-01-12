@@ -25,13 +25,7 @@ export class QuestionContentComponent implements OnInit {
 
   constructor(private fbs: FirebaseService, elementRef: ElementRef, renderer: Renderer) {
 
-    // this.globalListenFunc = renderer.listenGlobal('window', 'focus', (event) => {
-    //   //  console.log(event.type)
-    //    this.windowFocused();
-    // });
-
     this.globalListenFunc = renderer.listenGlobal('document', 'click', (event) => {
-      //  console.log(event.type)
        this.windowFocused();
     });
 

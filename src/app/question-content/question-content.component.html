@@ -1,6 +1,7 @@
 <!--(window:focus)="windowFocused()"-->
 <button *ngIf="!showQuestion" (click)="toggleQuestion()">Show Question</button>
 <div *ngIf="showQuestion && !fail">
+    <div>You have {{timerPosition}} seconds to answer the question.</div>
     <p>{{ currentQuestion.questionText }}</p>
     <ul class="question-answers">
         <li *ngFor="let answer of currentQuestion.options; let i = index" class="answer">
