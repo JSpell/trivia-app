@@ -1,14 +1,21 @@
-<p>{{ currentQuestion.questionText }}</p>
-<ul class="question-answers">
-    <li *ngFor="let answer of currentQuestion.options; let i = index" class="answer">
-        <input type="radio" 
-                [attr.name]="currentQuestion.$key" 
-                [value]="i" 
-                id="{{currentQuestion.$key}}-{{i}}"
-                (click)="getAnswer(currentQuestion, i)"
-        />
-        <label htmlFor="{{currentQuestion.$key}}-{{i}}" [class.correct]="i == 3"> {{ answer }} </label>
-    </li>                
-</ul>
-<p>You have selected {{currentQuestion.answerEval}}</p>
-<button (click)="submitAnswer()">Submit</button>
+<!--(window:focus)="windowFocused()"-->
+<button *ngIf="!showQuestion" (click)="toggleQuestion()">Show Question</button>
+<div *ngIf="showQuestion && !fail">
+    <p>{{ currentQuestion.questionText }}</p>
+    <ul class="question-answers">
+        <li *ngFor="let answer of currentQuestion.options; let i = index" class="answer">
+            <input type="radio" 
+                    [attr.name]="currentQuestion.$key" 
+                    [value]="i" 
+                    id="{{currentQuestion.$key}}-{{i}}"
+                    (click)="evalAnswer(i)"
+            />
+            <label htmlFor="{{currentQuestion.$key}}-{{i}}"> {{ answer }} </label>
+        </li>                
+    </ul>
+    <p>You have selected {{answerEval}}</p>
+    <button (click)="submitAnswer()">Submit</button>
+</div>
+<div *ngIf="fail">
+    Either you left the page, or your timer ran out. Sorry.
+</div>

@@ -1,5 +1,8 @@
-<ul>
+<ul *ngIf="listQuestions">
     <li *ngFor="let question of questionData | async;" class="question-container">
+        <p>{{question.$key}}</p>
+        <p>Date: {{date}}</p>
         <question-content [currentQuestion]="question"></question-content>
     </li>
 </ul>
+<question-content *ngIf="singleQuestion" [currentQuestion]="questionData"></question-content>

@@ -9,9 +9,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthStateComponent } from './auth-state/auth-state.component';
 import { UserDataComponent } from './user-data/user-data.component';
+import { QuestionContentComponent } from './question-content/question-content.component';
 
 import { FirebaseService } from './firebase.service';
-import { QuestionContentComponent } from './question-content/question-content.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD62AjtNiXO4eAhXTa6v-g1JmjVeT58tLY",
@@ -41,7 +41,9 @@ export const firebaseAuthConfig = {
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
-  providers: [FirebaseService],
+  providers: [
+    FirebaseService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
