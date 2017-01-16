@@ -15,23 +15,25 @@ export class QuestionContentComponent implements OnInit {
   selectedAnswer: any;
   focus: void;
   globalListenFunc: Function;
-  blurred: boolean = false;
+  // blurred: boolean = false;
   timerRunning: boolean = false;
   timerControl: any;
-  timerPosition: number;
+  timerPosition: number = 30;
   showQuestion: boolean = false;
   fail: boolean = false;
+  correctAnswer: boolean;
 
 
   constructor(private fbs: FirebaseService, elementRef: ElementRef, renderer: Renderer) {
 
-    this.globalListenFunc = renderer.listenGlobal('document', 'click', (event) => {
-       this.windowFocused();
-    });
+    // this.globalListenFunc = renderer.listenGlobal('document', 'click', (event) => {
+    //    this.windowFocused();
+    // });
 
-    this.globalListenFunc = renderer.listenGlobal('window', 'blur', (event) => {
-       this.windowBlurred();
-    });
+    if(this.timerRunning)
+      this.globalListenFunc = renderer.listenGlobal('window', 'blur', (event) => {
+        this.windowBlurred();
+      });
 
   }
 
@@ -41,42 +43,47 @@ export class QuestionContentComponent implements OnInit {
   }
 
   submitAnswer(answer) {
-    console.log("Selected: " + this.selectedAnswer + " -- Correct: " + this.currentQuestion.answer);
+    // console.log("Selected: " + this.selectedAnswer + " -- Correct: " + this.currentQuestion.answer);
+    this.timerRunning = false;
     if(this.selectedAnswer == this.currentQuestion.answer)
-      alert("Correct");
-    else
-      alert("WRONG!");
+      this.correctAnswer = true;
+    else {
+      this.correctAnswer = false;
+    }
+
   }
 
   startTimer() {
     this.timerRunning = true;
-    var timer = 30;
     var timerInterval = setInterval(() => {
-        console.log(timer + " seconds");
-        this.timerPosition = timer;
-        if (--timer < 1) {
+        // console.log(this.timerRunning);
+        if (--this.timerPosition < 1) {
             clearInterval(timerInterval);
-            console.log("Time's up!")
             this.fail = true;
+        }
+        if(this.timerRunning == false)
+        {
+          clearInterval(timerInterval);
         }
     }, 1000);
   return(timerInterval);
   }
 
-  windowFocused() {
-    if(this.showQuestion && !this.blurred && !this.timerRunning)
-      this.timerControl = this.startTimer();
-  }
+  // windowFocused() {
+  //   if(this.showQuestion && !this.blurred && !this.timerRunning)
+  //     this.timerControl = this.startTimer();
+  // }
 
   windowBlurred() {
-    this.blurred = true;
+    // this.blurred = true;
     this.fail = true;
     clearInterval(this.timerControl);
   }
 
   toggleQuestion() {
     this.showQuestion = !this.showQuestion;
-    this.windowFocused();
+    // this.windowFocused();
+    this.timerControl = this.startTimer();
   }
 
   ngOnInit() {

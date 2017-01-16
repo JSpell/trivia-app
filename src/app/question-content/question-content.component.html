@@ -1,22 +1,24 @@
 <!--(window:focus)="windowFocused()"-->
-<button *ngIf="!showQuestion" (click)="toggleQuestion()">Show Question</button>
-<div *ngIf="showQuestion && !fail">
-    <div>You have {{timerPosition}} seconds to answer the question.</div>
-    <p>{{ currentQuestion.questionText }}</p>
-    <ul class="question-answers">
-        <li *ngFor="let answer of currentQuestion.options; let i = index" class="answer">
-            <input type="radio" 
-                    [attr.name]="currentQuestion.$key" 
-                    [value]="i" 
-                    id="{{currentQuestion.$key}}-{{i}}"
-                    (click)="evalAnswer(i)"
-            />
-            <label htmlFor="{{currentQuestion.$key}}-{{i}}"> {{ answer }} </label>
-        </li>                
-    </ul>
-    <p>You have selected {{answerEval}}</p>
-    <button (click)="submitAnswer()">Submit</button>
+<div *ngIf="!fail">
+    <button *ngIf="!showQuestion" (click)="toggleQuestion()">Show Question</button>
+    <div *ngIf="showQuestion">
+        <div>You have {{timerPosition}} seconds to answer the question.</div>
+        <p>{{ currentQuestion.questionText }}</p>
+        <ul class="question-answers">
+            <li *ngFor="let answer of currentQuestion.options; let i = index" class="answer">
+                <input type="radio" 
+                        [attr.name]="currentQuestion.$key" 
+                        [value]="i" 
+                        id="{{currentQuestion.$key}}-{{i}}"
+                        (click)="evalAnswer(i)"
+                />
+                <label htmlFor="{{currentQuestion.$key}}-{{i}}"> {{ answer }} </label>
+            </li>                
+        </ul>
+        <p>You have selected {{answerEval}}</p>
+        <button (click)="submitAnswer()">Submit</button>
+    </div>
 </div>
-<div *ngIf="fail">
-    Either you left the page, or your timer ran out. Sorry.
-</div>
+<div *ngIf="correctAnswer">You have answered the question correctly!  Good job.</div>
+<div *ngIf="correctAnswer == false">I am sorry, but that answer is wrong.</div>
+<div *ngIf="fail">Either you left the page, or your timer ran out. Sorry.</div>
