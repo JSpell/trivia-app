@@ -30,9 +30,9 @@ export class QuestionContentComponent implements OnInit {
     //    this.windowFocused();
     // });
 
-    if(this.timerRunning)
       this.globalListenFunc = renderer.listenGlobal('window', 'blur', (event) => {
-        this.windowBlurred();
+        if(this.timerRunning)
+          this.windowBlurred();
       });
 
   }
